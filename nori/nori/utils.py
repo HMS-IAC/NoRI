@@ -188,3 +188,18 @@ def create_circular_se(radius):
     - numpy.ndarray: Circular kernel.
     """
     return cv.getStructuringElement(cv.MORPH_ELLIPSE, (2 * radius + 1, 2 * radius + 1))
+
+
+def create_composite_image(image1, image2, image3):
+    """
+    Creates an RGB image from three input images.
+
+    Args:
+        image1, image2, image3 (numpy.ndarray): Input images.
+
+    Returns:
+        numpy.ndarray: RGB image.
+    """
+    rgb_image = np.stack([image1, image2, image3], axis=-1)
+
+    return image_scaling(rgb_image)

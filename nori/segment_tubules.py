@@ -10,14 +10,14 @@ from typing import List, Tuple
 from nori.data_loader import read_tiff_and_extract_channels
 from nori.image_processing import combine_input_channels, normalize_intensity_levels
 from nori.segmentation import sam_segmentation_tiled
-from nori.utils import read_tiff_file_names, transpose_input_image, pad_image
+from nori.utils import read_file_names, transpose_input_image, pad_image
 
 
 # Constants
 ROOT_FOLDER: str = "_DATA"
 OUT_FOLDER: str = os.path.join(ROOT_FOLDER, "segmentations")
 CHECKPOINT_PATH: str = "sam_model/sam_vit_h_4b8939.pth"
-TIFF_FILES: List[str] = read_tiff_file_names(root_folder=f"{ROOT_FOLDER}/nori_images")
+TIFF_FILES: List[str] = read_file_names(root_folder=f"{ROOT_FOLDER}/nori_images")
 TILE_SHAPE: Tuple[int, int] = (1970, 2000)
 STRIDE: int = 500
 DEVICE: str = 'cpu'  # 'cuda' for NVIDIA GPU
@@ -57,10 +57,7 @@ def load_and_prepare_image(tiff_file: str) -> np.ndarray:
     # image[:, :, 2] = combine_input_channels(image[:, :, 0], image[:, :, 1])
 
     ch3 = combine_input_channels(ch1, ch2)
-    image = np.zeros((ch1.shape[0], ch1.shape[1], 3), dtype='uint8')
-    image[:, :, 0] = ch1
-    image[:, :, 1] = ch2
-    image[:, :, 2] = ch3
+    image = np.stack([ch1, ch2, ch3], axis=-1)
 
     return image
 

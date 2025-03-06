@@ -118,9 +118,8 @@ def normalize_intensity_levels(image: np.ndarray) -> np.ndarray:
     min_val, max_val = image.min(), image.max()
     if max_val - min_val == 0:
         return np.zeros(image.shape, dtype=np.uint8)
-    normalized = 255 * (image - min_val) / (max_val - min_val)
+    normalized = ((image - min_val) / (max_val - min_val)) * 255
     return normalized.astype(np.uint8)
-
 
 
 

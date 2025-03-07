@@ -8,6 +8,33 @@ This study addresses the computational challenges of accurately segmenting and q
 :computer: [Computation Paper](#)   |   :microscope: [Bio Paper](#)   |   :file_folder: [Dataset](#)
 
 ---
+## Installation
+Clone the repository and install dependencies:  
+```bash
+git clone https://github.com/HMS-IAC/NoRI.git
+cd NoRI
+pip install -r requirements.txt
+```
+Run NoRI on a Raman image:
+```bash
+python nori/main.py --input path/to/raman_image --output path/to/results
+```
+
+## Usage
+
+
+## Citation
+```bash
+@article{NoRI2025,
+  author = {Authors},
+  title = {Title of the Paper},
+  journal = {Journal Name},
+  year = {2025},
+  volume = {XX},
+  pages = {XX-XX},
+  doi = {Insert DOI}
+}
+```
 
 ## Contact
 For questions and collaboration opportunities, contact:

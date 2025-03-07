@@ -38,13 +38,13 @@ CONST = {
 
 
 
-def process_image(file_path: str, folders: dict, constants: dict) -> dict:
+def process_image(file_path: str, FOLDERS: dict, constants: dict) -> dict:
     """
     Process a single image to extract and measure various features.
     
     Parameters:
         file_path (str): Path to the image file.
-        folders (dict): Dictionary containing various folder paths.
+        FOLDERS (dict): Dictionary containing various folder paths.
         thresholds (dict): Dictionary containing threshold values for channel classification.
         constants (dict): Dictionary containing constant values for measurement calculations.
 
@@ -62,21 +62,21 @@ def process_image(file_path: str, folders: dict, constants: dict) -> dict:
 
     try:
         print(f'Reading tubule masks...')
-        tubule = cv.imread(f'{folders["TUBULES"]}/{image_name}.png', cv.IMREAD_GRAYSCALE)
+        tubule = cv.imread(f'{FOLDERS["TUBULES"]}/{image_name}.png', cv.IMREAD_GRAYSCALE)
         tubule = remove_border_tubules(tubule)
         
         print('Reading substructure masks...')
-        nuclei = cv.imread(f'{folders["NUCLEI"]}/{image_name}.png', cv.IMREAD_GRAYSCALE)
-        brushborder = cv.imread(f'{folders["BRUSHBORDER"]}/{image_name}.png', cv.IMREAD_GRAYSCALE)
-        lumen = cv.imread(f'{folders["LUMEN"]}/{image_name}.png', cv.IMREAD_GRAYSCALE)
+        nuclei = cv.imread(f'{FOLDERS["NUCLEI"]}/{image_name}.png', cv.IMREAD_GRAYSCALE)
+        brushborder = cv.imread(f'{FOLDERS["BRUSHBORDER"]}/{image_name}.png', cv.IMREAD_GRAYSCALE)
+        lumen = cv.imread(f'{FOLDERS["LUMEN"]}/{image_name}.png', cv.IMREAD_GRAYSCALE)
 
 
         if 'KIM' not in image_name:
-            tubule_class_image = cv.imread(f'{folders['TUBULE_CLASS']}/{image_name}.png', cv.IMREAD_GRAYSCALE)
-            brushborder = cv.imread(f'{folders['BRUSHBORDER']}/{image_name}.png', cv.IMREAD_GRAYSCALE)
+            tubule_class_image = cv.imread(f'{FOLDERS["TUBULE_CLASS"]}/{image_name}.png', cv.IMREAD_GRAYSCALE)
+            brushborder = cv.imread(f'{FOLDERS["BRUSHBORDER"]}/{image_name}.png', cv.IMREAD_GRAYSCALE)
             kim=False
         else:
-            tubule_class_image = cv.imread(f'{folders['TUBULE_CLASS']}/KIM/{image_name}.png', cv.IMREAD_GRAYSCALE)
+            tubule_class_image = cv.imread(f'{FOLDERS["TUBULE_CLASS"]}/KIM/{image_name}.png', cv.IMREAD_GRAYSCALE)
             brushborder = np.zeros_like(nuclei)
             kim=True
 
@@ -100,14 +100,13 @@ def process_image(file_path: str, folders: dict, constants: dict) -> dict:
                                    ch5=ch5,
                                    ch6=ch6,
                                    tubule_class_image=tubule_class_image,
-                                   constants=constants,
                                    image_name=image_name,
                                    kim=kim)
             if data:
                 data_list.append(data)
                 # update_classification_image(tubule_class_image, contour, data)
 
-        save_results(data_list, folders['OUT'], image_name)
+        save_results(data_list, FOLDERS['OUT'], image_name)
     except Exception as e:
         print(f'Cannot find mask for {image_name}: {e}')
 
@@ -344,11 +343,9 @@ def main():
     """
     Main function to process all images in the specified folder.
     """
-    file_paths = read_file_names(root_folder=ROOT_FOLDER, file_type=0)
+    file_paths = read_file_names(root_folder=f'{ROOT_FOLDER}/nori_images', file_type=0)
     for file_path in file_paths:
         process_image(file_path, FOLDERS, CONST)
-
-        break
 
 if __name__ == '__main__':
     main()

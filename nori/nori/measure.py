@@ -65,14 +65,19 @@ def measure_content(image: np.ndarray, mask: np.ndarray, constant: float) -> Tup
     if mask.sum() != 0:
         mask = validate_mask(mask)
         
-        total_content = float(((image[mask] * constant * 1000) / 8192).sum())
-        mean_content = float(((image[mask] * constant * 1000) / 8192).mean())
-    else:
-        total_content = 0.0
-        mean_content = 0.0
+        contours, _ = cv.findContours(255*(mask.astype('uint8')), cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
+        count = len(contours)
+        
+        total_content = ((image[mask]*constant*1000)/8192).sum()
+        mean_content = ((image[mask]*constant*1000)/8192).mean()
+        std_content = ((image[mask]*constant*1000)/8192).std()/np.sqrt(count)
 
-    # logging.info(f"Measured content - Total: {total_content}, Mean: {mean_content}")
-    return total_content, mean_content
+    else:
+        total_content = 0
+        mean_content = 0
+        std_content = 0
+
+    return total_content, mean_content, std_content
 
 def measure_nuclei_intensity(image: np.ndarray, mask: np.ndarray) -> Tuple[float, float, float, int]:
     """
@@ -95,13 +100,13 @@ def measure_nuclei_intensity(image: np.ndarray, mask: np.ndarray) -> Tuple[float
     count = len(contours)
     
     if count != 0:
-        # total_intensity = float(image[mask].sum())
+        total_intensity = float(image[mask].sum())
         mean_intensity = float(image[mask].mean())
         std_intensity = float(image[mask].std() / np.sqrt(count))
     else:
-        # total_intensity = 0.0
+        total_intensity = 0.0
         mean_intensity = 0.0
         std_intensity = 0.0
 
     # logging.info(f"Measured nuclei intensity - Mean: {mean_intensity}, Std Dev: {std_intensity}, Count: {count}")
-    return np.round(mean_intensity, 4), np.round(std_intensity, 4), count
+    return total_intensity, np.round(mean_intensity, 4), np.round(std_intensity, 4), count

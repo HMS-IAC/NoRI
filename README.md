@@ -24,6 +24,10 @@ To use this repo on your images, you can use the following files for specific ta
 
 *Note: The data directory is hard-coded inside each python script, so please check them and add correct path before running the scripts.* 
 
+## Collaborators
+This project was a collaboration between the [Kirschner lab](https://www.kirschnerlab.org/) and [Image Analysis Collaboratory](https://iac.hms.harvard.edu/).
+
+
 ## Citation
 ```bash
 @article{NoRI2025,

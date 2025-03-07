@@ -15,13 +15,14 @@ git clone https://github.com/HMS-IAC/NoRI.git
 cd NoRI
 pip install -r requirements.txt
 ```
-Run NoRI on a Raman image:
-```bash
-python nori/main.py --input path/to/raman_image --output path/to/results
-```
 
 ## Usage
+To use this repo on your images, you can use the following files for specific tasks:
+1. [segment_tubules.py](nori/segment_tubules.py): To process raw NoRI images and segment tubules.
+2. [substructure_ilastik.py](nori/substructure_ilastik.py): To create individual substructure segmentation from the Ilastik output.
+3. [glue.py](nori/glue.py): To combine all segmentations, measure features and intensities and export csv.
 
+*Note: The data directory is hard-coded inside each python script, so please check them and add correct path before running the scripts.* 
 
 ## Citation
 ```bash

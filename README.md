@@ -11,6 +11,6 @@ This study addresses the computational challenges of accurately segmenting and q
 
 ## Contact
 For questions and collaboration opportunities, contact:
-* Harvard Medical School Image Analysis Collaboratory
+* :round_pushpin: Image Analysis Collaboratory at Harvard Medical School
 * :email: Email: [iac@hms.harvard.edu](mailto:iac@hms.harvard.edu)
 * :globe_with_meridians: Website: [HMS-IAC](https://iac.hms.harvard.edu/)

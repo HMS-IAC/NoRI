@@ -1,0 +1,6 @@
+tifffile
+opencv-python
+git+https://github.com/facebookresearch/segment-anything.git
+pytorch
+matplotlib
+scikit-learn

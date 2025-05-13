@@ -83,29 +83,37 @@ def process_image(file_path: str, FOLDERS: dict, constants: dict) -> dict:
 
         contours, _ = cv.findContours(tubule, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
         data_list = []
-        
-        # cyto_only = np.zeros_like(tubule)
+        labeled_mask = np.zeros_like(tubule, dtype=np.uint16)  # Supports >255 labels
 
         for idx, contour in enumerate(contours, start=1):
-            data = process_contour(idx=idx,
-                                   contour=contour,
-                                   protein_channel=protein_channel,
-                                   lipid_channel=lipid_channel,
-                                   tubule=tubule,
-                                   nuclei=nuclei,
-                                   brushborder=brushborder,
-                                   lumen=lumen,
-                                   ch3=ch3,
-                                   ch4=ch4,
-                                   ch5=ch5,
-                                   ch6=ch6,
-                                   tubule_class_image=tubule_class_image,
-                                   image_name=image_name,
-                                   kim=kim)
+            data = process_contour(
+                idx=idx,
+                contour=contour,
+                protein_channel=protein_channel,
+                lipid_channel=lipid_channel,
+                tubule=tubule,
+                nuclei=nuclei,
+                brushborder=brushborder,
+                lumen=lumen,
+                ch3=ch3,
+                ch4=ch4,
+                ch5=ch5,
+                ch6=ch6,
+                tubule_class_image=tubule_class_image,
+                image_name=image_name,
+                kim=kim
+            )
             if data:
                 data_list.append(data)
-                # update_classification_image(tubule_class_image, contour, data)
+                cv.drawContours(labeled_mask, [contour], -1, color=idx, thickness=-1)
 
+        # Save labeled mask
+        labeled_mask_dir = f'{FOLDERS["OUT"]}/labeled_mask'
+        os.makedirs(labeled_mask_dir, exist_ok=True)
+        cv.imwrite(f'{labeled_mask_dir}/{image_name}.png', labeled_mask)
+
+
+        # Save results
         save_results(data_list, FOLDERS['OUT'], image_name)
     except Exception as e:
         print(f'Cannot find mask for {image_name}: {e}')
@@ -193,8 +201,7 @@ def process_contour(idx: int, contour: np.ndarray, protein_channel: np.ndarray, 
     
     cyto_only_temp = image_opening(255*cyto_only_temp.astype(np.uint8), radius=7, iterations=1)
     
-    total_cyto_area = cyto_only_temp.sum()
-    
+        
 
     total_protein_intensity, mean_protein_intensity, std_protein_intensity = measure_intensity(tubule_ch1, cyto_only_temp)
     total_lipid_intensity, mean_lipid_intensity, std_lipid_intensity = measure_intensity(tubule_ch2, cyto_only_temp)
@@ -246,6 +253,11 @@ def process_contour(idx: int, contour: np.ndarray, protein_channel: np.ndarray, 
 
     if cyto_only_temp.sum() == 0:
         return {}
+    
+    # Skip this tubule if max intensity exceeds 4095 - 12-bit image
+    if (tubule_ch1.max() > 4095) or (tubule_ch2.max() > 4095):
+        return {}
+
 
     total_cyto_area = cyto_only_temp.sum()
     cx, cy = get_centroid(contour)

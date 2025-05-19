@@ -1,2 +1,5 @@
+.DS_Store
+__pycache__
 _DATA/
 sam_model/
+NoRI Visualizer/assets/test_data

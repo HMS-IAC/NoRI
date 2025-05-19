@@ -1,0 +1,13 @@
+qtpy
+matplotlib
+vispy
+tifffile
+opencv-python
+cmap
+superqt
+scikit-image
+fonticon-materialdesignicons6
+imagecodecs
+pandas
+mplcursors
+ndv

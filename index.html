@@ -56,11 +56,11 @@
             <div class="is-size-5 publication-authors">
               <!-- Paper authors -->
               <span class="author-block">
-                <a href="FIRST AUTHOR PERSONAL LINK" target="_blank">Ranit Karmakar</a><sup>*</sup>,</span>
+                <a href="https://iac.hms.harvard.edu/about/people/ranit.html" target="_blank">Ranit Karmakar</a><sup>*</sup>,</span>
                 <!-- <span class="author-block">
                   <a href="SECOND AUTHOR PERSONAL LINK" target="_blank">Second Author</a>,</span> -->
                   <span class="author-block">
-                    <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Simon Nørrelykke</a>
+                    <a href="https://iac.hms.harvard.edu/about/people/simon.html" target="_blank">Simon Nørrelykke</a>
                   </span>
                   </div>
 
@@ -73,7 +73,7 @@
                     <div class="publication-links">
                          <!-- Arxiv PDF link -->
                       <span class="link-block">
-                        <a href="https://arxiv.org/pdf/<ARXIV PAPER ID>.pdf" target="_blank"
+                        <a href="#" target="_blank"
                         class="external-link button is-normal is-rounded is-dark">
                         <span class="icon">
                           <i class="fas fa-file-pdf"></i>
@@ -106,7 +106,7 @@
 
                 <!-- ArXiv abstract Link -->
                 <span class="link-block">
-                  <a href="https://arxiv.org/abs/<ARXIV PAPER ID>" target="_blank"
+                  <a href="#" target="_blank"
                   class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                     <i class="ai ai-arxiv"></i>
@@ -117,7 +117,7 @@
 
               <!-- Zenodo abstract Link -->
               <span class="link-block">
-                <a href="https://arxiv.org/abs/<ARXIV PAPER ID>" target="_blank"
+                <a href="#" target="_blank"
                 class="external-link button is-normal is-rounded is-dark">
                 <span class="icon">
                   <i class="fa fa-images"></i>
@@ -158,7 +158,7 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            This study addresses the computational challenges of accurately segmenting and quantifying cellular components in kidney tissue using high-resolution imaging technologies like normalized Raman imaging (NoRI). To overcome the complexity of analyzing large, multi-channel datasets, we developed a computational pipeline integrating classical image processing techniques with machine learning models. The pipeline includes preprocessing, segmentation with the Segment Anything Model (SAM), pixel-based classification via Ilastik, and post-processing refinements. Key structures—tubules, nuclei, brush borders, and lumens—are segmented to quantify protein and lipid concentrations. Our approach achieves high accuracy, with an F1 score of 0.9340 for kidney tubule segmentation, enhanced by a custom contrast-enhancement technique for SAM. Comparative evaluations confirm its superiority over conventional segmentation methods, while biological analyses reveal insights into protein and lipid distribution across different kidney regions, sexes, and experimental conditions. This robust and scalable framework significantly improves segmentation accuracy and efficiency, making it broadly applicable to bioimage analysis in kidney pathology and other tissue types.
+            Normalized Raman Imaging (NoRI) enables high-resolution, label-free quantification of protein and lipid concentrations in biological tissues. Because NoRI provides rich molecular information, the analysis of its large, multi-channel datasets turns into a significant computational bottleneck. In this work, we introduce a novel, modular computational pipeline for automated segmentation and quantification of kidney tissue structures imaged with NoRI. The pipeline integrates classical image processing with state-of-the-art machine learning tools, including the Segment Anything Model (SAM) and ilastik, to segment key anatomical and biochemical features—such as tubules, nuclei, brush borders, and lumens. A custom contrast-enhancement strategy was developed to create a third SAM input channel from NoRI data, leading to a substantial improvement in segmentation performance (F1 score: 0.9226). Our framework enables accurate cytoplasm-resolved quantification of protein and lipid concentrations and reveals distinct biochemical signatures across renal tubule subtypes and experimental conditions. This method offers a robust, scalable foundation for quantitative tissue analysis and enhances the utility of NoRI imaging for biomedical research.
           </p>
         </div>
       </div>
@@ -176,10 +176,10 @@
           <h2 class="title is-3">Method</h2>
           <div class="content has-text-justified">
             <figure class="image">
-                <img src="static/images/method_2.png" alt="Descriptive Image">
+                <img src="static/images/method.png" alt="Descriptive Image">
               </figure>
             <p>
-              This study addresses the computational challenges of accurately segmenting and quantifying cellular components in kidney tissue using high-resolution imaging technologies like normalized Raman imaging (NoRI). To overcome the complexity of analyzing large, multi-channel datasets, we developed a computational pipeline integrating classical image processing techniques with machine learning models. The pipeline includes preprocessing, segmentation with the Segment Anything Model (SAM), pixel-based classification via Ilastik, and post-processing refinements. Key structures—tubules, nuclei, brush borders, and lumens—are segmented to quantify protein and lipid concentrations. Our approach achieves high accuracy, with an F1 score of 0.9340 for kidney tubule segmentation, enhanced by a custom contrast-enhancement technique for SAM. Comparative evaluations confirm its superiority over conventional segmentation methods, while biological analyses reveal insights into protein and lipid distribution across different kidney regions, sexes, and experimental conditions. This robust and scalable framework significantly improves segmentation accuracy and efficiency, making it broadly applicable to bioimage analysis in kidney pathology and other tissue types.
+              <strong>Computational pipeline for segmentation and quantification of protein and lipid concentrations in kidney tissues.</strong> Original NoRI images are pre-processed for contrast enhancement. Tubule segmentation is performed using the Segment Anything Model (SAM), and sub-structures (nuclei, brush borders, lumens) are refined with ilastik. Tubules are classified using IF channels and specific markers (LTL, uromodulin, AQP2). Finally, protein and lipid concentrations are measured within the cytoplasm, providing insights into tissue composition.
             </p>
           </div>
         </div>

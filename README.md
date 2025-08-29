@@ -27,7 +27,7 @@ To use this repo on your images, you can use the following files for specific ta
 ## Collaborators
 This project was a collaboration between the [Kirschner lab](https://www.kirschnerlab.org/) and [Image Analysis Collaboratory](https://iac.hms.harvard.edu/).
 
-
+<--
 ## Citation
 ```bash
 @article{NoRI2025,
@@ -40,6 +40,7 @@ This project was a collaboration between the [Kirschner lab](https://www.kirschn
   doi = {Insert DOI}
 }
 ```
+-->
 
 ## Contact
 For questions and collaboration opportunities, contact:
